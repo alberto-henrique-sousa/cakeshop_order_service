@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  postgres:
+    container_name: postgres_order_transaction
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=order_service
+      - POSTGRES_PASSWORD=order_service
+      - POSTGRES_DB=order_service
+      - PGDATA=/var/lib/postgresql/data/order_service/pgdata
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.13.6-management-alpine
+    hostname: rabbitmq
+    restart: always
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_USERNAME: admin
+      RABBITMQ_PASSWORD: admin
+
+volumes:
+  postgres:
+    external: true
+
