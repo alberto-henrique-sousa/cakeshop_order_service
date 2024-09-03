@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: cakeshop_order_service
+  jackson:
+    time-zone: America/Sao_Paulo
+  datasource:
+    hikari:
+      connection-init-sql: SET TIMEZONE TO 'America/Sao_Paulo'
