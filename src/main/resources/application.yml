@@ -1,8 +1,48 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: cakeshop_order_service
+
+  profiles:
+    active: dev
+
   jackson:
     time-zone: America/Sao_Paulo
+
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
   datasource:
+    schema: public
+    url: jdbc:postgresql://localhost:5432/order_service
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
     hikari:
-      connection-init-sql: SET TIMEZONE TO 'America/Sao_Paulo'
+      connection-init-sql: SET TIMEZONE TO '${spring.jackson.time-zone}'
+      maximun-pool-size: 50
+      data-source-properties:
+        reWriteBatchedInserts: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: ${spring.jackson.time-zone}
+        default_schema: ${spring.datasource.schema}
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    create-schemas: false
+    default_schema: ${spring.datasource.schema}
+
