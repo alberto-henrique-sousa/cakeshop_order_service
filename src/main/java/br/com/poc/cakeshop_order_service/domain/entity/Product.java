@@ -27,8 +27,8 @@ public class Product implements Serializable {
 
     @NotBlank
     @Length(min = 5)
-    @Column(name = "PRODUCT_NAME", unique = true)
-    private String productName;
+    @Column(name = "NAME", unique = true)
+    private String name;
 
     @Column(name = "PRICE")
     @Positive
