@@ -3,10 +3,7 @@ package br.com.poc.cakeshop_order_service.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
@@ -14,6 +11,7 @@ import java.time.OffsetDateTime;
 
 @Builder
 @Getter
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDTO {

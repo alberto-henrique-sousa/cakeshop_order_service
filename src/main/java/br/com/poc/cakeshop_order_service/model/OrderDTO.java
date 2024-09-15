@@ -3,10 +3,7 @@ package br.com.poc.cakeshop_order_service.model;
 import br.com.poc.cakeshop_order_service.domain.enums.OrderTypeEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -14,6 +11,7 @@ import java.util.List;
 
 @Builder
 @Getter
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDTO {

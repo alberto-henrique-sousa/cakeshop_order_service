@@ -20,7 +20,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping
-    public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
+    public ResponseEntity<List<CustomerDTO>> getAll() {
         List<CustomerDTO> customers = customerService.findAll();
         if (customers.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -29,21 +29,21 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerDTO> getCustomerById(
+    public ResponseEntity<CustomerDTO> getById(
             @PathVariable final Long id) {
         Optional<CustomerDTO> customer = customerService.get(id);
         return customer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDTO> createCustomer(
+    public ResponseEntity<CustomerDTO> create(
             @RequestBody @Valid final CustomerDTO customerDTO) {
         CustomerDTO createdCustomer = customerService.create(customerDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDTO> updateCustomer(
+    public ResponseEntity<CustomerDTO> update(
             @PathVariable final Long id,
             @RequestBody @Valid final CustomerDTO customerDTO) {
         Optional<CustomerDTO> updatedCustomer = customerService.update(id, customerDTO);
@@ -52,7 +52,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCustomer(
+    public ResponseEntity<Void> delete(
             @PathVariable Long id) {
         if (customerService.delete(id)) {
             return ResponseEntity.noContent().build();

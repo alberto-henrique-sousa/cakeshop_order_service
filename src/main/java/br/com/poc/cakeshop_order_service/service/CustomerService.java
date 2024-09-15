@@ -37,7 +37,7 @@ public class CustomerService {
 
     public Optional<CustomerDTO> update(Long id, CustomerDTO customerDTO) {
         return customerRepository.findById(id).map(existingCustomer -> {
-            existingCustomer.setName(customerDTO.getName());
+            customerConverter.toEntity(customerDTO, existingCustomer);
             return customerConverter.toDTO(customerRepository.save(existingCustomer));
         });
     }

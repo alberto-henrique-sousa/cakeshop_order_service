@@ -2,21 +2,17 @@ package br.com.poc.cakeshop_order_service.domain.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "ORDER_ITEM")
-public class OrderItem implements Serializable {
+public class OrderItem extends Base implements Serializable {
 
     @Id
     @Column(name = "ID")
@@ -38,15 +34,5 @@ public class OrderItem implements Serializable {
     @Column(name = "QUANTITY")
     @Positive
     private Integer quantity = 1;
-
-    @CreationTimestamp
-    @Setter(AccessLevel.NONE)
-    @Column(name = "CREATE_AT")
-    private OffsetDateTime createAt = OffsetDateTime.now();
-
-    @UpdateTimestamp
-    @Setter(AccessLevel.NONE)
-    @Column(name = "UPDATE_AT")
-    private OffsetDateTime updateAt = OffsetDateTime.now();
 
 }

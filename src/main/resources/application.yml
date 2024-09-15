@@ -8,6 +8,16 @@ spring:
   profiles:
     active: dev
 
+  messages:
+    basename: messages
+    encoding: UTF-8
+
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
   jackson:
     time-zone: America/Sao_Paulo
 

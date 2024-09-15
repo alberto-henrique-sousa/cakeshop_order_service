@@ -5,6 +5,7 @@ import br.com.poc.cakeshop_order_service.domain.entity.OrderItem;
 import br.com.poc.cakeshop_order_service.model.OrderDTO;
 import br.com.poc.cakeshop_order_service.model.OrderItemDTO;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class OrderConverter {
 
     private final OrderItemConverter orderItemConverter;
 
-    public OrderDTO toDTO(Order order) {
+    public OrderDTO toDTO(@NotNull Order order) {
         List<OrderItemDTO> items = order.getItems().stream()
                 .map(orderItemConverter::toDTO)
                 .collect(Collectors.toList());
@@ -32,18 +33,28 @@ public class OrderConverter {
                 .build();
     }
 
-    public Order toEntity(OrderDTO orderDTO) {
-        List<OrderItem> items = orderDTO.getItems().stream()
-                .map(orderItemConverter::toEntity)
-                .collect(Collectors.toList());
+    public Order toEntity(@NotNull OrderDTO orderDTO) {
         Order order = new Order();
         order.setId(orderDTO.getId());
+        setOrder(orderDTO, order);
+        return order;
+    }
+
+    public void toEntity(OrderDTO orderDTO, Order order) {
+        setOrder(orderDTO, order);
+    }
+
+    private void setOrder(@NotNull OrderDTO orderDTO, @NotNull Order order) {
         order.setExternalId(orderDTO.getExternalId());
         order.setCustomer(order.getCustomer());
         order.setTotal(order.getTotal());
         order.setStatus(orderDTO.getStatus());
-        order.setItems(items);
-        return order;
+        order.setItems(getOrderItems(orderDTO));
     }
 
+    private List<OrderItem> getOrderItems(@NotNull OrderDTO orderDTO) {
+        return orderDTO.getItems().stream()
+                .map(orderItemConverter::toEntity)
+                .collect(Collectors.toList());
+    }
 }
